@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Webpage</title>
+  <style>
+
+    /* this doesn't work */
+    @font-face {
+      font-family: 'Angelos', Arial, sans-serif;
+      src: url("/Users/kittysimmons/Documents/Studio/Programming/Web Dev/untitled/Assets/Angelos.ttf") format(truetype);
+    }
+
+    /* for the header */
+    .header img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .header h1 {
+      color: #0A8209FF;
+      font-family: 'Angelos', Arial, sans-serif;
+      font-size: 50px;
+    }
+
+    /* for the nav bar */
+    .navbar {
+      background-color: #588f26;
+      padding: 10px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    .navbar li {
+      margin-right: 20px;
+    }
+
+    .navbar a {
+      color: #d3b95b;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .navbar a:hover {
+      text-decoration: underline;
+    }
+
+    #kofi {
+      margin-top: -29px;
+      float: right;
+    }
+
+    /* for the rest */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      text-align: center;
+      padding: 20px;
+      background-color: #8EBA14FF;
+      color: orange;
+      height: 100%;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      width: 100%;
+    }
+    .grid-item {
+      text-align: center;
+      background: #578B28FF;
+      padding: 4px;
+      border-radius: 8px;
+    }
+    .grid-item img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .grid-item img:hover {
+      transform: scale(1.2);
+    }
+
+    p {
+      font-style: italic;
+    }
+
+    #mydiv {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 9;
+      text-align: center;
+    }
+
+    #mydivheader {
+      padding: 10px;
+      cursor: move;
+      z-index: 10;
+    }
+
+    .footer {
+      height: 200px;
+      position: fixed;
+      bottom: 0;
+      background-color: #8EBA14FF;
+      min-width: 100%;
+      border-top: solid 150px #7FECE4FF;
+    }
+
+    #stumpy {
+
+    }
+
+    .spacer {
+      height: 350px;
+    }
+
+  </style>
+</head>
+<body>
+<div class="header"><img src="Assets/banner.png" alt="Placeholder Image">
+  <nav class="navbar">
+    <ul>
+      <li><a href="/ratcircus"><- Go Back To Rat Circus Homepage</a></li>
+      </ul>
+    <a href='https://ko-fi.com/K3K4GU1T7' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com'  id="kofi"/></a>
+  </nav>
+  <h1>Little Rat Circus 2025</h1>
+</div>
+
+<div class="grid">
+  <div class="grid-item">
+    <p>Prizes & Info</p>
+    <a href="/prizes"><img src="Assets/prizes.png" alt="Image 1"></a>
+  </div>
+  <div class="grid-item">
+    <p>Calendar of Events</p>
+    <a href="/calendar"><img src="Assets/calendar.png" alt="Image 2"></a>
+  </div>
+  <div class="grid-item">
+    <p>Fundraiser Raffle</p>
+    <a href="raffle.html"><img src="Assets/raffle.png" alt="Image 3"></a>
+  </div>
+  <div class="grid-item">
+    <p>1/6 Valentine's</p>
+    <a href="/valentines"><img src="Assets/valentines.png" alt="Image 4"></a>
+  </div>
+  <div class="grid-item">
+    <a href="#"><img src="Assets/envelope.png" alt="Image 5"></a>
+    <p>2/6 Grand National</p>
+  </div>
+  <div class="grid-item">
+    <a href="#"><img src="Assets/envelope.png" alt="Image 6"></a>
+    <p>3/6 Dressage "Test"</p>
+  </div>
+  <div class="grid-item">
+    <a href="#"><img src="Assets/envelope.png" alt="Image 7"></a>
+    <p>4/6 Circus Tricks</p>
+  </div>
+  <div class="grid-item">
+    <a href="#"><img src="Assets/envelope.png" alt="Image 8"></a>
+    <p>5/6 In-hand Show</p>
+  </div>
+  <div class="grid-item">
+    <a href="#"><img src="Assets/envelope.png" alt="Image 8"></a>
+    <p>6/6 Team Gymkhana</p>
+  </div>
+  </div>
+
+
+
+<div class="footer">
+<!-- Draggable DIV -->
+<div id="mydiv">
+  <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
+  <div id="mydivheader">
+  <div id="stumpy">
+      <img src="Assets/stumpy.png">
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="spacer"></div>
+
+<script>
+  // Make the DIV element draggable:
+  dragElement(document.getElementById("mydiv"));
+
+  function dragElement(elmnt) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById(elmnt.id + "header")) {
+      // if present, the header is where you move the DIV from:
+      document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+    } else {
+      // otherwise, move the DIV from anywhere inside the DIV:
+      elmnt.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+      e = e || window.event;
+      e.preventDefault();
+      // get the mouse cursor position at startup:
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = closeDragElement;
+      // call a function whenever the cursor moves:
+      document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+      e = e || window.event;
+      e.preventDefault();
+      // calculate the new cursor position:
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      // set the element's new position:
+      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+      // stop moving when mouse button is released:
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+  }
+
+</script>
+
+</body>
+</html>

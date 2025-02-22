@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Rats!</title>
+    <style>
+
+        /* for the header */
+        .header img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .header h1 {
+            color: #0A8209FF;
+            font-family: Baskerville;
+            font-size: 50px;
+        }
+
+        /* for the nav bar */
+        .navbar {
+            background-color: #588f26;
+            padding: 10px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar li {
+            margin-right: 20px;
+        }
+
+        .navbar a {
+            color: #d3b95b;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        #kofi {
+            margin-top: -29px;
+            float: right;
+        }
+
+        /* for the rest */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+            background-color: #8EBA14FF;
+            color: #0e0d0d;
+            height: 100%;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .grid {
+            display: grid;
+            font-weight: bold;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+        .grid-item {
+            text-align: center;
+            background: #578B28FF;
+            padding: 4px;
+            border-radius: 8px;
+        }
+        .grid-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .grid-item img:hover {
+            transform: scale(1.5);
+        }
+
+        .spacer {
+            height: 20px;
+        }
+
+        /* for the page text content */
+        .textbody {
+            max-width: 100%;
+            background-color: #708f1c;
+            padding: 20px;
+        }
+
+        .textbody img {
+            border-radius: 10px;
+            width: 50%;
+        }
+
+        .textbody p {
+            color: black;
+            text-align: left;
+        }
+
+        .textbody .grid p {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<div class="header"><img src="Assets/banner.png" alt="Placeholder Image">
+    <nav class="navbar">
+        <ul>
+            <li><a href="/ratcircus"><- Go Back To Rat Circus Homepage</a></li>
+        </ul>
+        <a href='https://ko-fi.com/K3K4GU1T7' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com'  id="kofi"/></a>
+    </nav>
+    <h1>Raffle</h1>
+</div>
+
+<div class="grid">
+    <div class="grid-item">
+        <p>Free Raffle Entry</p>
+        <a href="https://www.chickensmoothie.com/Forum/viewtopic.php?f=124&t=5027500"><img src="Assets/red.png" alt="Image 1"></a>
+    </div>
+    <div class="grid-item">
+        <p>1 Donor Ticket</p>
+        <a href="https://ko-fi.com/s/915b1a5c7c"><img src="Assets/green.png" alt="Image 2"></a>
+    </div>
+    <div class="grid-item">
+        <p>5 Donor Tickets</p>
+        <a href="https://ko-fi.com/s/cdc54bd63d"><img src="Assets/blue.png" alt="Image 3"></a>
+    </div>
+    <div class="grid-item">
+        <p>20 Donor Tickets</p>
+        <a href="https://ko-fi.com/s/6c6816bb88"><img src="Assets/yellow.png" alt="Image 4"></a>
+    </div>
+</div>
+
+<div class="spacer"></div>
+
+<div class="textbody">
+    <img src="Assets/raffle.png">
+    <p>
+        We're doing a little <b>fundraiser raffle</b> to raise some money to pay artists for their time, and invest into little rats projects (Like making a better website, hopefully with some games!).
+        <br><br>Entry to this raffle is <b>free</b> and donation is optional!
+        <br><br>
+        The raffle will be drawn on <b>March the 20th</b>, and an additional prize will be given for the biggest donor.
+        <br><br>
+        <b>How to enter</b><br>
+        Entry is free! Just comment <a href="https://www.chickensmoothie.com/Forum/viewtopic.php?f=124&t=5027500">on this topic</a>  to enter.
+        <br><br>
+        <b>How to donate</b><br>
+        You can buy extra 'donation' raffle tickets through my Kofi shop! Click on one of the donor raffle tickets above to be redirected to the purchase site.
+        <br>Donation is optional, You do not have to donate in order to enter the raffle. The conversion rate is £1 per 1 extra ticket.
+        <br><br>Red - free ticket<br>
+        Green - 1 extra ticket<br>
+        Blue - 5 Extra tickets<br>
+        Yellow - 20 extra tickets<br> </p>
+    <div class="grid">
+        <div class="grid-item">
+            <p>1 Donor Ticket</p>
+            <a href="https://ko-fi.com/s/915b1a5c7c"><img src="Assets/green.png" alt="Image 2"></a>
+        </div>
+        <div class="grid-item">
+            <p>5 Donor Tickets</p>
+            <a href="https://ko-fi.com/s/cdc54bd63d"><img src="Assets/blue.png" alt="Image 3"></a>
+        </div>
+        <div class="grid-item">
+            <p>20 Donor Tickets</p>
+            <a href="https://ko-fi.com/s/6c6816bb88"><img src="Assets/yellow.png" alt="Image 4"></a>
+        </div>
+    </div>
+    <p>
+        <br>
+        I will tally up all the donation tickets and add them to the draw pool on march 20th.
+        <br><br>
+        <b>What's the prize?</b><br>
+        The prize for both the raffle and the biggest donor will be a custom backdrop or accessory or item for your little rat, drawn by pond. We'll make an announcement if more prizes get added!
+    </p>
+</div>
+
+
+
+</body>
+</html>
