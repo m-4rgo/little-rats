@@ -3,7 +3,7 @@ dragElement(document.getElementById("stumpy"));
 dragElement(document.getElementById("first-rosette"));
 dragElement(document.getElementById("hat"));
 dragElement(document.getElementById("westernsaddle"));
-dragElement(document.getElementById("englishsaddle"));
+dragElement(document.getElementById("raffleticket"));
 
 function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -16,6 +16,7 @@ function dragElement(elmnt) {
     }
 
     function dragMouseDown(e) {
+        elmnt.style.cursor = "grabbing";
         e = e || window.event;
         e.preventDefault();
         // get the mouse cursor position at startup:
@@ -40,6 +41,7 @@ function dragElement(elmnt) {
     }
 
     function closeDragElement() {
+        elmnt.style.cursor = "grab";
         // stop moving when mouse button is released:
         document.onmouseup = null;
         document.onmousemove = null;
