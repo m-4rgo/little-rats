@@ -62,7 +62,7 @@ ratUpload.onclick = function() {
         // Set the rat image's src to the new URL
         ratSpot.src = newRatURL;
     } else {
-        alert("Please enter a valid URL for the rat image.");
+        alert("Please enter a valid URL for the equid image.");
     }
 };
 

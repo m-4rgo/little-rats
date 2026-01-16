@@ -2,39 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Little Rats! Home</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-            background-color: darkolivegreen;
-            color: orange;
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Welcome to the Little Rats Launchpad</h1>
-<p><a href="/little-rats/RatCircus.html">ENTER THE RAT WORMHOLE</a></p>
-<img src="Assets/adopt.png" alt="Placeholder Image">
-<p>
-    <a href="https://www.chickensmoothie.com/Forum/viewtopic.php?f=123&t=5024742">Adoption page</a>
-    <a href ="https://docs.google.com/spreadsheets/d/1fmzSy3ViVJwgVoK0nU4_YjcMJPdbX8tKxVNge2sHDEU/edit?gid=0#gid=0">Registry</a>
-    <a href="https://www.chickensmoothie.com/Forum/viewtopic.php?f=125&t=5024803">Info centre</a>
-    <a href="https://discord.com/invite/bkDNFH8TQ6">discord</a>
-</p>
+
+<div class="page">
+
+
+<nav>
+    <img src="Images/logo.png" alt="Logo" id="logo">
+
+    <div id="navbar">
+        <ul id="site-nav">
+            <li>your rats</li>
+            <li>forums</li>
+        </ul>
+
+        <ul id="user-nav">
+            <li>login / register</li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+  <section id="splash" class="content">
+      <ul id="splash-nav">
+
+          <li>
+              <a href="https://www.chickensmoothie.com/Forum/viewtopic.php?f=125&t=5024803"><img src="Images/info.png" alt="info"></a>
+              <p>info centre</p>
+          </li>
+          <li>
+              <a href="https://docs.google.com/spreadsheets/d/1fmzSy3ViVJwgVoK0nU4_YjcMJPdbX8tKxVNge2sHDEU/edit?gid=0#gid=0"><img src="Images/scroll.png" alt="registry"></a>
+              <p>registry</p>
+          </li>
+          <li>
+              <a href="https://www.chickensmoothie.com/Forum/viewtopic.php?f=123&t=5024742"><img src="Images/heart.png" alt="adoptions"></a>
+              <p>adoptions</p>
+          </li>
+          <li>
+              <a href="https://discord.com/invite/bkDNFH8TQ6"><img src="Images/discord.png" alt="discord"></a>
+              <p>discord</p>
+          </li>
+          <li>
+              <a href="#"><img src="Images/letter.png" alt="circus"></a>
+              <p>rat circus</p>
+          </li>
+      </ul>
+  </section>
+</main>
+
+
+</div>
+
 </body>
 </html>
