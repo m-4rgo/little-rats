@@ -1,0 +1,7 @@
+<h1>{{ user.name }}'s Inventory</h1>
+<ul>
+    {% for item in inventory %}
+    <li>{{ item.name }}</li>
+    {% endfor %}
+</ul>
+<a href="/users">Back to Users</a>
