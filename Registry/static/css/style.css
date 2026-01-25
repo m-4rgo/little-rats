@@ -35,7 +35,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    cursor: url("{{ url_for('static', filename='assets/cursor.png') }}"), auto;
+    cursor: url("/static/assets/cursor.png"), auto;
 }
 
 a {
@@ -255,6 +255,9 @@ main {
     gap: 1rem;
     position: relative;
     background-color: var(--straw-yellow);
+}
+.user-rats li:hover {
+    border: 2px solid var(--daisy-white);
 }
 .user-items h3, .user-rats h3 {
     font-size: .9rem;
