@@ -17,11 +17,25 @@
     --sans-font: 'Nunito', sans-serif;
 }
 
+.cherry-bomb-one-regular {
+    font-family: "Cherry Bomb One", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+.dynapuff-regular {
+               font-family: "DynaPuff", system-ui;
+               font-optical-sizing: auto;
+               font-weight: 700;
+               font-style: normal;
+               font-variation-settings:
+                       "wdth" 100;
+           }
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    cursor: url("/static/assets/cursor.png"), auto;
+    cursor: url("{{ url_for('static', filename='assets/cursor.png') }}"), auto;
 }
 
 a {
@@ -79,6 +93,7 @@ main {
     width: 100%;
 }
 
+/* everything for the index/homepage */
 #splash {
     background-image: url("/static/assets/splash.png");
     background-repeat: no-repeat;
@@ -87,11 +102,57 @@ main {
     margin: 3rem auto;
     min-height: 650px;
     height: 70vh;
+    position: relative;
+    border-radius: 40% 1rem 1rem 1rem;
+}
+#splash-title {
+    /*font-family: "Cherry Bomb One", system-ui;*/
+    /* font-size: 4rem;*/
+    /* position: relative;*/
+     /*transform: rotate(-30deg);*/
+     /*margin: 0 auto auto 0;*/
+    /* color: var(--grass-green);*/
+    /* text-shadow:*/
+    /*         -3px -3px 0 var(--dandelion-yellow),*/
+    /*         3px -3px 0 var(--dandelion-yellow),*/
+    /*         -3px  3px 0 var(--dandelion-yellow),*/
+    /*         3px  3px 0 var(--dandelion-yellow);*/
+    /* z-index: 1;*/
+    /*fill: var(--grass-green)*/
+ }
+.splash-svg {
+    transform: rotate(-25deg);
+    /*transform: rotate(-30deg);*/
+    /*background-color: red;*/
+    background-color: var(--straw-yellow);
+    border-radius: 45%;
+    padding: 2rem;
+    margin-left: -4%;
+    margin-top: -1%;
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: auto;
+    inset: 0;
+    max-width: 450px;
+    pointer-events: none;
+    z-index: 1;
+    /*transform: rotate(-45deg);*/
+    /*transform-origin: center;*/
+}
+.splash-text {
+    fill: var(--slate-grey);
+    stroke: var(--daisy-white);
+    font-size: 48px;
+    stroke-width: 6px;
+    paint-order: stroke fill;
 }
 #splash-nav {
     display: flex;
     flex-direction: column;
     list-style: none;
+    z-index: 2;
+    position: relative;
 }
 #splash-nav li {
     display: inline-flex;
@@ -104,6 +165,17 @@ main {
     padding: 0.5rem;
     margin: 1rem;
     transition: transform 1s ease, filter 0.5s ease;
+}
+#splash-nav p {
+    font-size: 1.75rem;
+    padding: 0;
+    line-height: 1.5rem;
+    text-transform: capitalize;
+    transform: rotate(-15deg);
+    margin-top: -2rem;
+    margin-left: 2rem;
+    filter: drop-shadow(0 0 5px var(--daisy-white));
+    color: var(--slate-grey);
 }
 #splash-nav img {
     width: 100px;
@@ -124,6 +196,7 @@ main {
 #splash-nav li:nth-child(4) { margin-left: 15%; }
 #splash-nav li:nth-child(5) { margin-left: 7%; }
 
+/* main content block for page content */
 .content {
     background-color: var(--straw-yellow);
     color: var(--slate-grey);
@@ -132,18 +205,29 @@ main {
     padding: 2rem;
     margin: 3rem auto;
 }
+.content h1 {
+    font-family: "Cherry Bomb One", system-ui;
+    font-size: 3rem;
+}
 .content a {
     text-decoration: underline;
 }
 .content a:hover {
     font-weight: bold;
 }
+.content p {
+    padding: 0.5rem;
+}
 
 /* User Page (profile) */
 .user-info {
     padding: 1rem;
 }
-.user-items {
+.user-info h1 {
+    font-family: "Cherry Bomb One", system-ui;
+    font-size: 4rem;
+}
+.user-items, .user-rats {
     border: 2px solid black;
     border-radius: 2rem;
     padding: 2rem;
@@ -153,13 +237,13 @@ main {
     margin: 1rem;
     background-color: var(--slate-grey);
 }
-.user-items ul {
+.user-items ul, .user-rats ul {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
     gap: 1rem;
 }
-.user-items li {
+.user-items li, .user-rats li {
     display: flex;
     flex-direction: column;
     border: 2px solid black;
@@ -172,14 +256,14 @@ main {
     position: relative;
     background-color: var(--straw-yellow);
 }
-.user-items h3 {
+.user-items h3, .user-rats h3 {
     font-size: .9rem;
     border-radius: 1rem;
     background-color: var(--daisy-white);
     padding: 0.5rem;
     /*margin: 0.5rem;*/
 }
-.user-items img {
+.user-items img, .user-rats img {
     /*padding: 1rem;*/
     max-height: 200px;
     width: auto;
@@ -202,13 +286,13 @@ main {
     font-weight: bold;
 }
 
-/* Users Page (list) and Items Page (list) */
-.user-list, .item-list {
+/* Users (list), Rats (list), Items (list) */
+.user-list, .item-list, .rat-list {
     display: flex;
     /*padding: 1rem;*/
     margin: 1rem;
 }
-.user-list ul, .item-list ul {
+.user-list ul, .item-list ul, .rat-list ul {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -218,7 +302,7 @@ main {
 .user-list li {
     padding: 0.5rem;
 }
-.user-list a, .item-list li {
+.user-list a, .item-list li, .rat-list li {
     font-weight: bold;
     text-decoration: none;
     padding: 1rem;
@@ -229,10 +313,10 @@ main {
 .user-list a:hover {
     background-color: var(--sky-blue);
 }
-.item-list a:hover {
+.item-list a:hover, .rat-list a:hover {
     background-color: var(--logo-orange);
 }
-.item-list li {
+.item-list li, .rat-list li {
     display: flex;
     gap: 1rem;
 }
@@ -245,7 +329,31 @@ main {
 .item-list .item-owners {
     font-size: 0.6rem;
 }
-
+.tabs-container {
+    background-color: var(--grass-green);
+    border-radius: 2rem;
+    padding: 1rem;
+}
+.year-tabs button, .month-tabs button {
+    all: unset;
+    font-weight: bold;
+    padding: 0.5rem;
+    border: 3px solid var(--daisy-white);
+    /*margin: 2px;*/
+    background-color: var(--leaf-green);
+    /*padding: 5px 10px;*/
+    /*cursor: pointer;*/
+    border-radius: 1rem;
+}
+.tabs-container button:hover {
+    background-color: var(--grass-green);
+}
+.year-tabs button.active, .month-tabs button.active {
+    background-color: var(--logo-orange);
+}
+.pagination {
+    padding: 1rem;
+}
 
 .columns {
     display: flex;
@@ -280,4 +388,17 @@ main {
     #splash {
         background-size: 70% auto;
     }
+}
+
+@media (max-width: 800px) {
+    #splash {
+        border-radius: 50% 1rem 1rem 1rem;
+    }
+    .splash-svg {
+        transform: rotate(-40deg);
+        margin-left: -10%;
+        margin-top: 5%;
+    }
+    #splash-nav li:nth-child(1) { margin-left: 75%; }
+    #splash-nav li:nth-child(2) { margin-left: 50%; margin-top: -6%; }
 }

@@ -2,27 +2,40 @@
 
 {% block content %}
 <section id="splash" class="content">
-    <ul id="splash-nav">
+    <div id="splash-title" class="dynapuff-regular">
+        <svg class="splash-svg" viewBox="0 0 300 120" aria-hidden="true">
+            <defs>
+                <path id="curve" d="M 20 90 Q 150 20 280 90" />
+            </defs>
 
+            <text class="splash-text">
+                <textPath href="#curve" startOffset="50%" text-anchor="middle">
+                    Little Rats!
+                </textPath>
+            </text>
+        </svg>
+    </div>
+
+    <ul id="splash-nav">
         <li>
-            <a href="https://www.chickensmoothie.com/Forum/viewtopic.php?f=125&t=5024803"><img src="{{url_for('static', filename='assets/info.png')}}" alt="info"></a>
-            <p>info centre</p>
+            <a href="/info"><img src="{{url_for('static', filename='assets/info.png')}}" alt="info"></a>
+            <p class="cherry-bomb-one-regular">info centre</p>
         </li>
         <li>
-            <a href="https://docs.google.com/spreadsheets/d/1fmzSy3ViVJwgVoK0nU4_YjcMJPdbX8tKxVNge2sHDEU/edit?gid=0#gid=0"><img src="{{url_for('static', filename='assets/scroll.png')}}" alt="registry"></a>
-            <p>registry</p>
+            <a href="/registry"><img src="{{url_for('static', filename='assets/scroll.png')}}" alt="registry"></a>
+            <p class="cherry-bomb-one-regular">registry</p>
         </li>
         <li>
-            <a href="https://www.chickensmoothie.com/Forum/viewtopic.php?f=123&t=5024742"><img src="{{url_for('static', filename='assets/heart.png')}}" alt="adoptions"></a>
-            <p>adoptions</p>
+            <a href="/adoptions"><img src="{{url_for('static', filename='assets/heart.png')}}" alt="adoptions"></a>
+            <p class="cherry-bomb-one-regular">adoptions</p>
         </li>
         <li>
             <a href="https://discord.com/invite/bkDNFH8TQ6"><img src="{{url_for('static', filename='assets/discord.png')}}" alt="discord"></a>
-            <p>discord</p>
+            <p class="cherry-bomb-one-regular">discord</p>
         </li>
         <li>
             <a href="/circus"><img src="{{url_for('static', filename='assets/letter.png')}}" alt="circus"></a>
-            <p>rat circus</p>
+            <p class="cherry-bomb-one-regular">rat circus</p>
         </li>
     </ul>
 </section>

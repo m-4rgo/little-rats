@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="content">
+  <h1>All Rats</h1>
+  <div class="rat-list">
+    <ul>
+      {% for rat in rats %}
+      <li>
+        <div class="rat-icon">
+          {% if rat.image_path %}
+          <img src="{{ url_for('static', filename=rat.image_path) }}" alt="{{ rat.name }}" width="150">
+          {% endif %}
+        </div>
+
+        <div class="rat-details">
+          <h2>
+            {{ rat.rat_name }}
+          </h2>
+          <p>
+            Owned by
+            {% if rat.owner_id %}
+            <a href="{{ url_for('user_inventory', user_id=rat.owner_id) }}">
+              {{ rat.owner_name }}
+            </a>
+            {% else %}
+            No owner
+            {% endif %}
+          </p>
+
+          <p>ID# {{ rat.ratID }}</p>
+        </div>
+
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="pagination">
+    {% if page > 1 %}
+    <a href="{{ url_for('all_rats', page=page-1) }}">← Prev</a>
+    {% endif %}
+
+    <span>Page {{ page }} of {{ total_pages }}</span>
+
+    {% if page < total_pages %}
+    <a href="{{ url_for('all_rats', page=page+1) }}">Next →</a>
+    {% endif %}
+  </div>
+
+  <a href="/">← Back to Home</a>
+</section>
+{% endblock %}

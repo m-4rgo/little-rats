@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="content">
+  <h1>All Items</h1>
+
+  <div class="item-list">
+    <ul>
+      {% for item in items %}
+      <li>
+        <div class="item-icon">
+          {% if item.image_path %}
+          <img src="{{ url_for('static', filename=item.image_path) }}" alt="{{ item.name }}" width="100">
+          {% endif %}
+        </div>
+
+        <div class="item-details">
+          {{ item.item_name }}
+          <div class="item-description">
+            {% if item.item_description %}
+            {{ item.item_description }}
+            {% endif %}
+          </div>
+
+          <div class="item-owners">
+            {% if item.owners %}
+            (Owned by
+            {% for owner in item.owners %}
+            <a href="/user/{{ owner.id }}">{{ owner.name }}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+            )
+            {% else %}
+            (No owners)
+            {% endif %}
+          </div>
+        </div>
+
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <a href="/">← Back to Home</a>
+</section>
+{% endblock %}
+
+
+
+<!--python is below here -->
+@app.route('/items')
+def all_items():
+db = get_db()
+try:
+with db.cursor() as cursor:
+# Get all items (INCLUDING image_path)
+cursor.execute("""
+SELECT itemID, item_name, image_path, item_description
+FROM items
+""")
+items = cursor.fetchall()
+
+# Fetch all ownerships in one query
+cursor.execute("""
+SELECT inv.item_id, u.userID, u.user_name
+FROM inventory inv
+JOIN users u ON inv.user_id = u.userID
+""")
+ownerships = cursor.fetchall()
+
+# Group owners by itemID
+owners_by_item = {}
+for o in ownerships:
+owners_by_item.setdefault(
+o['item_id'], []
+).append({
+'id': o['userID'],
+'name': o['user_name']
+})
+
+# Attach owners to each item
+for item in items:
+item['owners'] = owners_by_item.get(item['itemID'], [])
+
+finally:
+db.close()
+
+return render_template('items.html', items=items)

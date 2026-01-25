@@ -24,5 +24,19 @@
         </ul>
     </div>
 
+    <h3>{{ user.name }}'s Rats</h3>
+    <div class="user-rats">
+        <ul>
+            {% for rat in rats %}
+            <li>
+                <h3>{{ rat.name }}</h3>
+                {% if rat.image_path %}
+                <img src="{{ url_for('static', filename=rat.image_path) }}" alt="{{ rat.name }}">
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
 </section>
 {% endblock %}

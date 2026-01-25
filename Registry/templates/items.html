@@ -4,42 +4,125 @@
 <section class="content">
     <h1>All Items</h1>
 
+    <div class="tabs-container">
+        <!-- Year Tabs -->
+        <div class="year-tabs">
+            {% for year, months in grouped_items|dictsort(reverse=True) %}
+            <button class="year-tab" data-year="{{ year }}">{{ year }}</button>
+            {% endfor %}
+        </div>
+
+        <!-- Month Tabs (will update when year changes) -->
+        <div class="month-tabs"></div>
+    </div>
+
     <div class="item-list">
-        <ul>
-        {% for item in items %}
-        <li>
-            <div class="item-icon">
-                {% if item.image_path %}
-                <img src="{{ url_for('static', filename=item.image_path) }}" alt="{{ item.name }}" width="100">
-                {% endif %}
-            </div>
+        {% for year, months in grouped_items|dictsort(reverse=True) %}
+        {% for month, month_items in months|dictsort %}
 
-            <div class="item-details">
-                {{ item.item_name }}
-                <div class="item-description">
-                    {% if item.item_description %}
-                    {{ item.item_description }}
+        <ul class="items" data-year="{{ year }}" data-month="{{ month }}" style="display:none;">
+
+            <!-- Header for year/month -->
+            <h3 class="item-group-header" data-year="{{ year }}" data-month="{{ month }}" style="display:none;">
+                {{ month }} {{ year }}
+            </h3>
+
+            {% for item in month_items %}
+            <li>
+                <div class="item-icon">
+                    {% if item.image_path %}
+                    <img src="{{ url_for('static', filename=item.image_path) }}" alt="{{ item.item_name }}" width="100">
                     {% endif %}
                 </div>
-
-                <div class="item-owners">
-                    {% if item.owners %}
-                    (Owned by
-                    {% for owner in item.owners %}
-                    <a href="/user/{{ owner.id }}">{{ owner.name }}</a>{% if not loop.last %}, {% endif %}
-                    {% endfor %}
-                    )
-                    {% else %}
-                    (No owners)
-                    {% endif %}
+                <div class="item-details">
+                    {{ item.item_name }}
+                    <div class="item-description">
+                        {% if item.item_description %}
+                        {{ item.item_description }}
+                        {% endif %}
+                    </div>
+                    <div class="item-owners">
+                        {% if item.owners %}
+                        (Owned by
+                        {% for owner in item.owners %}
+                        <a href="/user/{{ owner.id }}">{{ owner.name }}</a>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                        )
+                        {% else %}
+                        (No owners)
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-
-        </li>
+            </li>
+            {% endfor %}
+        </ul>
         {% endfor %}
-    </ul>
+        {% endfor %}
     </div>
 
     <a href="/">← Back to Home</a>
 </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const groupedItems = {{ grouped_items|tojson }};
+    const yearTabs = document.querySelectorAll(".year-tab");
+    const monthTabsContainer = document.querySelector(".month-tabs");
+    let currentYear = null;
+
+    function showMonth(year, month) {
+        // Show items and headers
+        document.querySelectorAll(".items").forEach(el => {
+            el.style.display = (el.dataset.year == year && el.dataset.month == month) ? "flex" : "none";
+        });
+        document.querySelectorAll(".item-group-header").forEach(h => {
+            h.style.display = (h.dataset.year == year && h.dataset.month == month) ? "block" : "none";
+        });
+
+        // Highlight active month button
+        document.querySelectorAll(".month-tab").forEach(btn => {
+            if (btn.textContent === month) {
+                btn.classList.add("active");
+            } else {
+                btn.classList.remove("active");
+            }
+        });
+    }
+
+    function renderMonthTabs(year) {
+        monthTabsContainer.innerHTML = "";
+        const months = Object.keys(groupedItems[year]).sort();
+        months.forEach(month => {
+            const btn = document.createElement("button");
+            btn.textContent = month;
+            btn.className = "month-tab";
+            btn.addEventListener("click", () => {
+                showMonth(year, month);
+            });
+            monthTabsContainer.appendChild(btn);
+        });
+
+        // Show first month by default
+        if (months.length) showMonth(year, months[0]);
+    }
+
+    yearTabs.forEach(btn => {
+        btn.addEventListener("click", () => {
+            currentYear = btn.dataset.year;
+
+            // Highlight active year button
+            yearTabs.forEach(b => b.classList.toggle("active", b === btn));
+
+            renderMonthTabs(currentYear);
+        });
+    });
+
+    // Initialize with first year
+    if (yearTabs.length) {
+        yearTabs[0].click();
+    }
+});
+
+</script>
+
 {% endblock %}
