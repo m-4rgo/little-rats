@@ -1,7 +1,28 @@
-<h1>{{ user.name }}'s Inventory</h1>
-<ul>
-    {% for item in inventory %}
-    <li>{{ item.name }}</li>
-    {% endfor %}
-</ul>
-<a href="/users">Back to Users</a>
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="content">
+    <a href="/users">← Back to Users</a>
+
+    <div class="user-info">
+        <h1>{{ user.name }}</h1>
+<!--        <p>chickensmoothie ID: {{ user.csid or "none" }}</p>-->
+    </div>
+
+    <h3>{{ user.name }}'s Trophy Shelf</h3>
+    <div class="user-items">
+        <ul>
+            {% for item in inventory %}
+            <li>
+                <span class="quantity">{{ item.quantity }}</span>
+                <h3>{{ item.name }}</h3>
+                {% if item.image_path %}
+                <img src="{{ url_for('static', filename=item.image_path) }}" alt="{{ item.name }}" width="100">
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</section>
+{% endblock %}

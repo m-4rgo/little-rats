@@ -1,5 +1,29 @@
-<h1>Welcome</h1>
-<ul>
-    <li><a href="/items">All Items</a></li>
-    <li><a href="/users">All Users</a></li>
-</ul>
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="splash" class="content">
+    <ul id="splash-nav">
+
+        <li>
+            <a href="https://www.chickensmoothie.com/Forum/viewtopic.php?f=125&t=5024803"><img src="{{url_for('static', filename='assets/info.png')}}" alt="info"></a>
+            <p>info centre</p>
+        </li>
+        <li>
+            <a href="https://docs.google.com/spreadsheets/d/1fmzSy3ViVJwgVoK0nU4_YjcMJPdbX8tKxVNge2sHDEU/edit?gid=0#gid=0"><img src="{{url_for('static', filename='assets/scroll.png')}}" alt="registry"></a>
+            <p>registry</p>
+        </li>
+        <li>
+            <a href="https://www.chickensmoothie.com/Forum/viewtopic.php?f=123&t=5024742"><img src="{{url_for('static', filename='assets/heart.png')}}" alt="adoptions"></a>
+            <p>adoptions</p>
+        </li>
+        <li>
+            <a href="https://discord.com/invite/bkDNFH8TQ6"><img src="{{url_for('static', filename='assets/discord.png')}}" alt="discord"></a>
+            <p>discord</p>
+        </li>
+        <li>
+            <a href="/circus"><img src="{{url_for('static', filename='assets/letter.png')}}" alt="circus"></a>
+            <p>rat circus</p>
+        </li>
+    </ul>
+</section>
+{% endblock %}

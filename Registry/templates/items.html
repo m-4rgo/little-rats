@@ -1,18 +1,45 @@
-<h1>All Items</h1>
-<ul>
-    {% for item in items %}
-    <li>
-        {{ item.item_name }}
-        {% if item.owners %}
-        (Owned by
-        {% for owner in item.owners %}
-        <a href="/user/{{ owner.id }}">{{ owner.name }}</a>{% if not loop.last %}, {% endif %}
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="content">
+    <h1>All Items</h1>
+
+    <div class="item-list">
+        <ul>
+        {% for item in items %}
+        <li>
+            <div class="item-icon">
+                {% if item.image_path %}
+                <img src="{{ url_for('static', filename=item.image_path) }}" alt="{{ item.name }}" width="100">
+                {% endif %}
+            </div>
+
+            <div class="item-details">
+                {{ item.item_name }}
+                <div class="item-description">
+                    {% if item.item_description %}
+                    {{ item.item_description }}
+                    {% endif %}
+                </div>
+
+                <div class="item-owners">
+                    {% if item.owners %}
+                    (Owned by
+                    {% for owner in item.owners %}
+                    <a href="/user/{{ owner.id }}">{{ owner.name }}</a>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                    )
+                    {% else %}
+                    (No owners)
+                    {% endif %}
+                </div>
+            </div>
+
+        </li>
         {% endfor %}
-        )
-        {% else %}
-        (No owners)
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
-<a href="/">Back to Home</a>
+    </ul>
+    </div>
+
+    <a href="/">← Back to Home</a>
+</section>
+{% endblock %}

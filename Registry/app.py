@@ -19,13 +19,20 @@ def get_db():
 def home():
     return render_template('index.html')
 
+@app.route('/circus')
+def circus():
+    return render_template('rat_circus_2026.html')
+
 @app.route('/items')
 def all_items():
     db = get_db()
     try:
         with db.cursor() as cursor:
-            # Get all items
-            cursor.execute("SELECT itemID, item_name FROM items")
+            # Get all items (INCLUDING image_path)
+            cursor.execute("""
+                SELECT itemID, item_name, image_path, item_description
+                FROM items
+            """)
             items = cursor.fetchall()
 
             # Fetch all ownerships in one query
@@ -39,11 +46,17 @@ def all_items():
             # Group owners by itemID
             owners_by_item = {}
             for o in ownerships:
-                owners_by_item.setdefault(o['item_id'], []).append({'id': o['userID'], 'name': o['user_name']})
+                owners_by_item.setdefault(
+                    o['item_id'], []
+                ).append({
+                    'id': o['userID'],
+                    'name': o['user_name']
+                })
 
             # Attach owners to each item
             for item in items:
                 item['owners'] = owners_by_item.get(item['itemID'], [])
+
     finally:
         db.close()
 
@@ -72,11 +85,12 @@ def user_inventory(user_id):
 
             # Get inventory for that user
             cursor.execute("""
-                SELECT i.item_name AS name, inv.quantity
-                FROM inventory inv
-                JOIN items i ON inv.item_id = i.itemID
-                WHERE inv.user_id = %s
-            """, (user_id,))
+    SELECT i.item_name AS name, i.image_path, inv.quantity
+    FROM inventory inv
+    JOIN items i ON inv.item_id = i.itemID
+    WHERE inv.user_id = %s
+""", (user_id,))
+
             inventory = cursor.fetchall()
     finally:
         db.close()

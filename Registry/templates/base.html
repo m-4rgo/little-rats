@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="page">
+
+  <nav>
+    <img src="{{url_for('static', filename='assets/logo.png') }}" alt="Logo" id="logo">
+
+    <div id="navbar">
+      <ul id="site-nav">
+        <li><a href="/">home</a></li>
+        <li><a href="/users">user list</a></li>
+        <li><a href="/items">item list</a></li>
+      </ul>
+
+      <ul id="user-nav">
+<!--        <li>login / register</li>-->
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+
+</div>
+
+</body>
+</html>
