@@ -20,10 +20,6 @@ def get_db():
         cursorclass=pymysql.cursors.DictCursor
     )
 
-# app routes
-# def get_db():
-#     return pymysql.connect(**DB_CONFIG)
-
 @app.route('/')
 def home():
     return render_template('index.html')
