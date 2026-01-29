@@ -5,8 +5,21 @@
     <a href="/users">← Back to Users</a>
 
     <div class="user-info">
-        <h1>{{ user.name }}</h1>
-<!--        <p>chickensmoothie ID: {{ user.csid or "none" }}</p>-->
+        <div class="details-header">
+            <h1>{{ user.name }}</h1>
+
+            <div class="cs-link">
+                {% if user.csid %}
+                <a href="https://www.chickensmoothie.com/Forum/memberlist.php?mode=viewprofile&u={{ user.csid }}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    chickensmoothie profile #{{ user.csid }}
+                </a>
+                {% else %}
+                <p>User's chickensmoothie account is not linked</p>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
     <h3>{{ user.name }}'s Trophy Shelf</h3>
@@ -28,12 +41,20 @@
     <div class="user-rats">
         <ul>
             {% for rat in rats %}
+            <a href="/rat/{{ rat.ratID }}">
             <li>
-                <h3>{{ rat.name }}</h3>
+                <h3  class="capitalise">
+                    {% if rat.name %}
+                        {{ rat.name }}
+                    {% else %}
+                        Unnamed Rat
+                    {% endif %}
+                </h3>
                 {% if rat.image_path %}
                 <img src="{{ url_for('static', filename=rat.image_path) }}" alt="{{ rat.name }}">
                 {% endif %}
             </li>
+            </a>
             {% endfor %}
         </ul>
     </div>

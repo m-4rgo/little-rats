@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-import calendar
 import pymysql
 
 app = Flask(__name__)
@@ -30,7 +29,19 @@ def registry():
 
 @app.route('/adoptions')
 def adoptions():
-    return render_template('adoptions.html')
+    db = get_db()
+    try:
+        with db.cursor() as cursor:
+            # collect all rats without an owner
+            cursor.execute("""SELECT ratID as rat_id, rat_name AS rat_name , image_path AS rat_image
+            FROM rats
+            WHERE owner_id IS NULL
+            """)
+            rats = cursor.fetchall()
+
+    finally: db.close()
+
+    return render_template('adoptions.html', rats=rats)
 
 @app.route('/info')
 def info():
@@ -51,13 +62,16 @@ def all_rats():
 
             # paginated rats
             cursor.execute("""SELECT
-    r.ratID,
+    r.ratID AS rat_id,
     r.rat_name,
-    r.image_path,
+    r.image_path AS rat_image,
     u.userID AS owner_id,
-    u.user_name AS owner_name
+    u.user_name AS owner_name,
+    a.userID AS artist_id,
+    a.user_name AS artist_name
 FROM rats r
 LEFT JOIN users u ON r.owner_id = u.userID
+LEFT JOIN users a ON r.artist_id = a.userID
 ORDER BY r.ratID
 LIMIT %s OFFSET %s
 """, (per_page, offset))
@@ -137,14 +151,59 @@ def all_users():
         db.close()
     return render_template('users.html', users=users)
 
+@app.route('/rat/<int:rat_id>')
+def rat_page(rat_id):
+    db = get_db()
+    try:
+        with db.cursor() as cursor:
+            # get rat info
+            # cursor.execute(
+            #     """
+            #     SELECT
+            #     ratID AS rat_id,
+            #     rat_name AS rat_name,
+            #     rat_link as cslink,
+            #     image_path AS rat_image
+            #     FROM rats
+            #     WHERE ratID = %s""",
+            #     (rat_id,)
+            # )
+
+            # paginated rats
+            cursor.execute("""
+            SELECT
+    r.ratID AS rat_id,
+    r.rat_name AS rat_name,
+    r.rat_link as cslink,
+    r.image_path AS rat_image,
+    u.userID AS owner_id,
+    u.user_name AS owner_name,
+    a.userID AS artist_id,
+    a.user_name AS artist_name
+FROM rats r
+LEFT JOIN users u ON r.owner_id = u.userID
+LEFT JOIN users a ON r.artist_id = a.userID
+WHERE r.ratID = %s
+""", (rat_id,))
+            rat = cursor.fetchone()
+
+
+    finally:
+        db.close()
+
+    return render_template(
+            'rat.html', rat=rat
+    )
+
+
 @app.route('/user/<int:user_id>')
-def user_inventory(user_id):
+def user_page(user_id):
     db = get_db()
     try:
         with db.cursor() as cursor:
             # Get user info
             cursor.execute(
-                "SELECT userID AS id, user_name AS name FROM users WHERE userID = %s",
+                "SELECT userID AS id, user_name AS name, chickensmoothie_id as csid FROM users WHERE userID = %s",
                 (user_id,)
             )
             user = cursor.fetchone()

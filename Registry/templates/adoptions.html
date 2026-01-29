@@ -4,6 +4,30 @@
 <section class="content">
 
     <h1>Adoptions</h1>
-    <p>This will be the adoptions page, which will link to the OG rat topic and the MYO rat topic. https://www.chickensmoothie.com/Forum/viewtopic.php?f=123&t=5024742</p>
+    <p>Here you can view the rats that are currently available to adopt. Click on a rat to visit their adoption page</p>
+
+    <h1>Available rats:</h1>
+
+
+    <div class="adopts-list">
+        <ul>
+            {% for rat in rats %}
+            <a href="/rat/{{ rat.rat_id }}" class="image_link">
+            <li>
+                <div class="rat-icon">
+                    {% if rat.rat_image %}
+                    <img src="{{ url_for('static', filename=rat.rat_image) }}" alt="{{ rat.rat_name }}" width="150">
+                    {% endif %}
+                </div>
+<!--                <p>{{ rat.rat_name }}</p>-->
+                <p>#{{ rat.rat_id }}</p>
+            </li>
+            </a>
+            {% else %}
+                <p>No rats available.</p>
+            {% endfor %}
+        </ul>
+    </div>
+
 </section>
 {% endblock %}

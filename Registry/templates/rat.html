@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="content">
+    <a href="/rats">← Back to Rats</a>
+
+    <div class="rat-info">
+        <div class="details-header">
+            <h1 class="capitalise">{{ rat.rat_name }}</h1>
+
+            <div class="cs-link">
+                {% if rat.cslink %}
+                <a href="{{ rat.cslink }}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    chickensmoothie page
+                </a>
+                {% else %}
+                <p>Rat's chickensmoothie page is not linked</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="rat-image">
+            {% if rat.rat_image %}
+            <img src="{{ url_for('static', filename=rat.rat_image) }}" alt="{{ rat.rat_name }}">
+            {% endif %}
+        </div>
+
+        <div class="bio">
+<!--            <h3 class="capitalise">ID Card</h3>-->
+            <div class="id-card">
+
+                {% if rat.rat_image %}
+                <img src="{{ url_for('static', filename=rat.rat_image) }}" alt="{{ rat.rat_name }}">
+                {% endif %}
+
+                <div class="id-info">
+                    <p>ID Number #{{ rat.rat_id }}</p>
+                    <p>
+                        Owned by:
+                        {% if rat.owner_id %}
+                        <a href="{{ url_for('user_page', user_id=rat.owner_id) }}">
+                            {{ rat.owner_name }}
+                        </a>
+                        {% else %}
+                        nobody!
+                        {% endif %}
+                    </p>
+                    <p>
+                        Created by:
+                        {% if rat.artist_id %}
+                        <a href="{{ url_for('user_page', user_id=rat.artist_id) }}">
+                            {{ rat.artist_name }}
+                        </a>
+                        {% else %}
+                        nobody!
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+<!--            <h3>Bio</h3>-->
+            <div class="bio-data">
+                {% if rat.owner_id %}
+                <p>This rat doesn't have a bio yet!</p>
+                {% else %}
+                <p>This rat is available for adoption!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <h3 class="capitalise">{{ rat.rat_name }}'s Show Record</h3>
+    <div class="user-items">
+        <ul>
+            {% for item in inventory %}
+            <li>
+                <span class="quantity">{{ item.quantity }}</span>
+                <h3>{{ item.name }}</h3>
+                {% if item.image_path %}
+                <img src="{{ url_for('static', filename=item.image_path) }}" alt="{{ item.name }}" width="100">
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</section>
+{% endblock %}
