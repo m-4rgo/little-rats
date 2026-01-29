@@ -1,23 +1,36 @@
 from flask import Flask, render_template, request
 import pymysql
+import os
+from config import DevConfig, ProdConfig
+
 
 app = Flask(__name__)
 
-# MySQL connection
-DB_CONFIG = {
-    "host": "localhost",
-    "user": "root",             # local user
-    "password": "",             # blank since no password
-    "db": "little_rats",        # your database name
-    "cursorclass": pymysql.cursors.DictCursor
-}
+# database config
+env = os.environ.get("FLASK_ENV", "dev")
+
+if env == "prod":
+    app.config.from_object(ProdConfig)
+else:
+    app.config.from_object(DevConfig)
 
 def get_db():
-    return pymysql.connect(**DB_CONFIG)
+    return pymysql.connect(
+        **app.config["DB_CONFIG"],
+        cursorclass=pymysql.cursors.DictCursor
+    )
+
+# app routes
+# def get_db():
+#     return pymysql.connect(**DB_CONFIG)
 
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/roadmap')
+def roadmap():
+    return render_template('roadmap.html')
 
 @app.route('/circus')
 def circus():
