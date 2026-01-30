@@ -33,6 +33,12 @@
 .capitalise {
     text-transform: capitalize;
 }
+.centre-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 * {
     margin: 0;
@@ -524,6 +530,67 @@ nav {
     width: 20%;
 }
 
+/* Dress-up game */
+.dressup-game-window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.dressup-game-window > * {
+    border-radius: 1rem;
+    border: 4px solid var(--slate-grey);
+    gap: 1rem;
+    padding: 0.5rem;
+}
+.dressup-stage {
+    box-sizing: initial;
+    display: flex;
+    width: 900px;
+    height: 600px;
+}
+.dressup-navigation {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--daisy-white);
+}
+.dressup-navigation > * {
+    border-radius: 1rem;
+    border: 3px solid var(--slate-grey);
+    gap: 1rem;
+    padding: 0.5rem;
+    min-height: 10px;
+    min-width: 10px;
+}
+.dressup-select {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--grass-green);
+}
+.dressup-select > * {
+    border-radius: 1rem;
+    border: 3px solid var(--slate-grey);
+    gap: 1rem;
+    padding: 0.5rem;
+    background-color: var(--leaf-green);
+}
+.dressup-wallpapers {
+
+}
+.dressup-items {
+
+}
+.account-select {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dandelion-yellow);
+}
+.account-select > * {
+    border-radius: 1rem;
+    border: 3px solid var(--slate-grey);
+    padding: 0.5rem;
+    background-color: var(--leaf-green);
+}
 
 @media (max-width: 1100px) {
     #splash {

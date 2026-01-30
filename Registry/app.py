@@ -28,6 +28,22 @@ def home():
 def roadmap():
     return render_template('roadmap.html')
 
+@app.route('/lists')
+def lists():
+    return render_template('lists.html')
+
+@app.route('/more')
+def more():
+    return render_template('more.html')
+
+@app.route('/dressup')
+def dressup():
+    return render_template('dressup.html')
+
+@app.route('/links')
+def links():
+    return render_template('links.html')
+
 @app.route('/circus')
 def circus():
     return render_template('rat_circus_2026.html')
@@ -245,8 +261,5 @@ def user_page(user_id):
     )
 
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5001)

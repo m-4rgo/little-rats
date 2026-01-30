@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="content">
+    <h1>Dressup Demo</h1>
+    <p>Here you can try out the beta dress-up game.</p>
+
+    <p>select rat</p>
+    <p>items list</p>
+    <p>click an item to add to scene</p>
+    <p>drag within scene to position item</p>
+
+    <div class="dressup-game-window">
+
+        <div class="dressup-stage">
+            <div class="foreground-items">
+
+            </div>
+            <div class="dressup-doll">
+                <img src="{{ url_for('static', filename='rats/rat_1.png') }}">
+            </div>
+            <div class="background-items">
+
+            </div>
+            <div class="wallpaper">
+
+            </div>
+        </div>
+
+        <div class="dressup-navigation">
+            <div class="dressup-select">
+                <div class="dressup-wallpapers">
+                    wallpapers here
+                </div>
+                <div class="dressup-items">
+                    items here
+                </div>
+            </div>
+            <div class="account-select">
+                <div class="select-user">
+                    user select
+                </div>
+                <div class="select-rat">
+                    rat select
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dressup.js') }}"></script>
+{% endblock %}

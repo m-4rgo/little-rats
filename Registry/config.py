@@ -27,3 +27,7 @@ class ProdConfig(BaseConfig):
 
 # def get_db():
 #     return pymysql.connect(**DB_CONFIG)
+
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
