@@ -530,7 +530,7 @@ nav {
     width: 20%;
 }
 
-/* Dress-up game */
+ /*Dress-up game */
 .dressup-game-window {
     display: flex;
     flex-direction: column;
@@ -545,27 +545,30 @@ nav {
 }
 .dressup-stage {
     box-sizing: initial;
-    display: flex;
+    /*display: flex;*/
+    position: relative;
     width: 900px;
     height: 600px;
+    overflow: hidden;
+    background: linear-gradient(var(--sky-blue), var(--grass-green));
 }
 .dressup-navigation {
     display: flex;
     flex-direction: row;
     background-color: var(--daisy-white);
+    width: 100%;
 }
 .dressup-navigation > * {
     border-radius: 1rem;
     border: 3px solid var(--slate-grey);
     gap: 1rem;
     padding: 0.5rem;
-    min-height: 10px;
-    min-width: 10px;
 }
 .dressup-select {
     display: flex;
     flex-direction: column;
     background-color: var(--grass-green);
+    width: 70%;
 }
 .dressup-select > * {
     border-radius: 1rem;
@@ -575,15 +578,28 @@ nav {
     background-color: var(--leaf-green);
 }
 .dressup-wallpapers {
-
 }
 .dressup-items {
-
+    display: flex;
+    /*flex-direction: row;*/
+    gap: 1rem;
+    overflow-x: scroll;
+}
+.dressup-items img {
+    max-width: 60px;
+    height: 100%;
+    cursor: pointer;
+}
+.dressup-item {
+    padding: 0.5rem;
+    background-color: var(--daisy-white);
+    border-radius: 2rem;
 }
 .account-select {
     display: flex;
     flex-direction: column;
     background-color: var(--dandelion-yellow);
+    width: 30%;
 }
 .account-select > * {
     border-radius: 1rem;
@@ -591,6 +607,53 @@ nav {
     padding: 0.5rem;
     background-color: var(--leaf-green);
 }
+/*.foreground-items {*/
+/*    position: relative;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
+/*.stage-item {*/
+/*    cursor: grab;*/
+/*}*/
+.select-list {
+    border: 1px solid #aaa;
+    /*max-height: 150px; */
+    overflow-y: auto;
+}
+.select-list div {
+    padding: 4px; cursor: pointer; }
+.select-list div:hover {
+    background: #eee; }
+.foreground-items {
+    position: absolute;   /* establishes coordinate system */
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    inset: 0;
+}
+.stage-item {
+    position: absolute;   /* REQUIRED */
+    cursor: grab;
+    user-select: none;
+}
+.stage-item:hover {
+    filter: drop-shadow(0 0 10px var(--dandelion-yellow));
+    will-change: filter, transform;
+}
+.dressup-wallpaper { z-index: 1; }
+.background-items { z-index: 2; }
+.dressup-doll { z-index: 3; pointer-events: none; }
+.foreground-items { z-index: 4; }
+.dressup-empty {
+    opacity: 0.5;
+    pointer-events: none; /* optional: prevent clicks when exhausted */
+}
+
+
+
+
+
+
 
 @media (max-width: 1100px) {
     #splash {

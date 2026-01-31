@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 import pymysql
 import os
 from config import DevConfig, ProdConfig
+from flask import jsonify
+
 
 
 app = Flask(__name__)
@@ -19,6 +21,51 @@ def get_db():
         **app.config["DB_CONFIG"],
         cursorclass=pymysql.cursors.DictCursor
     )
+
+# dressup game
+@app.route('/api/users')
+def api_users():
+    db = get_db()
+    try:
+        with db.cursor() as cursor:
+            cursor.execute("SELECT userID AS id, user_name AS name FROM users ORDER BY user_name")
+            users = cursor.fetchall()
+    finally:
+        db.close()
+    return jsonify(users)
+@app.route('/api/user/<int:user_id>/rats')
+def api_user_rats(user_id):
+    db = get_db()
+    try:
+        with db.cursor() as cursor:
+            cursor.execute("""
+                SELECT ratID AS id,
+                       COALESCE(rat_name, 'Unnamed Rat') AS name,
+                       image_path
+                FROM rats
+                WHERE owner_id = %s
+                ORDER BY rat_name
+            """, (user_id,))
+            rats = cursor.fetchall()
+    finally:
+        db.close()
+    return jsonify(rats)
+@app.route('/api/user/<int:user_id>/items')
+def api_user_items(user_id):
+    db = get_db()
+    try:
+        with db.cursor() as cursor:
+            cursor.execute("""
+                SELECT i.itemID AS id, i.item_name AS name, i.image_path, inv.quantity
+                FROM inventory inv
+                JOIN items i ON inv.item_id = i.itemID
+                WHERE inv.user_id = %s AND inv.quantity > 0
+            """, (user_id,))
+            items = cursor.fetchall()
+    finally:
+        db.close()
+    return jsonify(items)
+# end dressup game
 
 @app.route('/')
 def home():
