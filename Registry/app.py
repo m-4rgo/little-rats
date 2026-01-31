@@ -51,12 +51,13 @@ def api_user_rats(user_id):
         db.close()
     return jsonify(rats)
 @app.route('/api/user/<int:user_id>/items')
+@app.route('/api/user/<int:user_id>/items')
 def api_user_items(user_id):
     db = get_db()
     try:
         with db.cursor() as cursor:
             cursor.execute("""
-                SELECT i.itemID AS id, i.item_name AS name, i.image_path, inv.quantity
+                SELECT i.itemID AS id, i.item_name AS name, i.image_path, inv.quantity, i.item_scale, i.item_type
                 FROM inventory inv
                 JOIN items i ON inv.item_id = i.itemID
                 WHERE inv.user_id = %s AND inv.quantity > 0
@@ -65,6 +66,7 @@ def api_user_items(user_id):
     finally:
         db.close()
     return jsonify(items)
+
 # end dressup game
 
 @app.route('/')

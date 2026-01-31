@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const itemsDiv = document.querySelector(".dressup-items");
     const dollImg = document.querySelector(".dressup-doll img");
     const stage = document.querySelector(".foreground-items");
+    // const wallpapersDiv = document.querySelector(".dressup-wallpapers");
     const placedCounts = {};   // {itemId: count}
     const inventoryLimits = {}; // {itemId: max}
 
@@ -85,6 +86,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     stage.innerHTML = "";
                     dollImg.src = "";
 
+                    const wallpapersDiv = document.querySelector(".dressup-wallpapers");
+                    wallpapersDiv.innerHTML = "";  // clear previous wallpapers
+
+                    const wallpaperDiv = document.querySelector(".dressup-wallpaper");
+                    wallpaperDiv.style.backgroundImage = ""; // remove wallpaper from stage
+                    delete wallpaperDiv.dataset.currentWallpaper;
+
                     Object.keys(placedCounts).forEach(k => delete placedCounts[k]);
                     Object.keys(inventoryLimits).forEach(k => delete inventoryLimits[k]);
 
@@ -110,34 +118,87 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ---------- LOAD ITEMS ----------
-    // ---------- LOAD ITEMS ----------
     function loadItems(userId) {
+        const itemsDiv = document.querySelector(".dressup-items");
+        const wallpapersDiv = document.querySelector(".dressup-wallpapers");
         itemsDiv.innerHTML = "";
+        wallpapersDiv.innerHTML = "";
+
         Object.keys(placedCounts).forEach(k => delete placedCounts[k]);
         Object.keys(inventoryLimits).forEach(k => delete inventoryLimits[k]);
 
+        // 1️⃣ Load wallpapers/items from database first
         fetch(`/api/user/${userId}/items`)
             .then(r => r.json())
             .then(items => {
                 items.forEach(item => {
-                    inventoryLimits[item.id] = item.quantity;
-                    placedCounts[item.id] = 0;
+                    if (item.item_type === "wallpaper") {
+                        addWallpaperHotbar(item);  // user inventory wallpapers first
+                    } else {
+                        // normal items
+                        inventoryLimits[item.id] = item.quantity;
+                        placedCounts[item.id] = 0;
 
-                    const img = document.createElement("img");
-                    img.src = `/static/${item.image_path}`;
-                    img.className = "dressup-item";
-                    img.title = `${item.name} (${item.quantity})`;
-                    img.dataset.itemId = item.id; // store ID for reference
+                        const img = document.createElement("img");
+                        img.src = `/static/${item.image_path}`;
+                        img.className = "dressup-item";
+                        img.title = `${item.name} (${item.quantity})`;
+                        img.dataset.itemId = item.id;
 
-                    img.addEventListener("click", () => {
-                        if (placedCounts[item.id] >= inventoryLimits[item.id]) return;
-                        addItemToStage(item, img);
-                    });
+                        img.addEventListener("click", () => {
+                            if (placedCounts[item.id] >= inventoryLimits[item.id]) return;
+                            addItemToStage(item, img);
+                        });
 
-                    itemsDiv.appendChild(img);
+                        itemsDiv.appendChild(img);
+                    }
                 });
+
+                // 2️⃣ Load default wallpapers AFTER user wallpapers
+                const defaultWallpapers = [
+                    // { name: "Default 1", image_path: "wallpapers/blank_wallpaper.png" },
+                    { name: "Default 2", image_path: "wallpapers/default_wallpaper.png" },
+                    { name: "Default 3", image_path: "wallpapers/hubble_wallpaper_1.png" },
+                    { name: "Default 3", image_path: "wallpapers/hubble_wallpaper_2.png" },
+                    { name: "Default 3", image_path: "wallpapers/hubble_wallpaper_3.png" },
+                    { name: "Default 3", image_path: "wallpapers/hubble_wallpaper_4.png" },
+                    { name: "Default 3", image_path: "wallpapers/hubble_wallpaper_5.png" }
+                ];
+
+
+                defaultWallpapers.forEach(wp => addWallpaperHotbar(wp));
+
+                // 3️⃣ Add Remove Wallpaper button at the end
+                const removeBtn = document.createElement("button");
+                removeBtn.textContent = "Remove Wallpaper";
+                // removeBtn.style.marginLeft = "1rem";
+                removeBtn.addEventListener("click", () => {
+                    const wallpaperDiv = document.querySelector(".dressup-wallpaper");
+                    wallpaperDiv.style.backgroundImage = "";
+                    delete wallpaperDiv.dataset.currentWallpaper;
+                });
+                wallpapersDiv.appendChild(removeBtn);
             });
+
+        // 4️⃣ Function to add a wallpaper to hotbar
+        function addWallpaperHotbar(wp) {
+            const img = document.createElement("img");
+            img.src = `/static/${wp.image_path}`;
+            img.className = "wallpaper-item";
+            img.title = wp.name;
+
+            img.addEventListener("click", () => {
+                const wallpaperDiv = document.querySelector(".dressup-wallpaper");
+                wallpaperDiv.style.backgroundImage = `url(/static/${wp.image_path})`;
+                wallpaperDiv.dataset.currentWallpaper = wp.image_path;
+            });
+
+            wallpapersDiv.appendChild(img);
+        }
     }
+
+
+
 
 // ---------- ADD ITEM TO STAGE ----------
     function addItemToStage(item, inventoryImg) {
@@ -155,6 +216,13 @@ document.addEventListener("DOMContentLoaded", () => {
         img.style.left = "40px";
         img.style.top = "40px";
 
+        // Apply scale if present
+        if (item.item_scale) {
+            const scaleFactor = item.item_scale / 100;
+            img.style.transform = `scale(${scaleFactor})`;
+            img.style.transformOrigin = "top left"; // keep positioning consistent
+        }
+
         makeDraggable(img);
 
         // right-click removes item
@@ -171,6 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         stage.appendChild(img);
     }
+
 
 
 
