@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import pymysql
 import os
-from config import DevConfig, ProdConfig
+from .config import DevConfig, ProdConfig
 from flask import jsonify
 
 
