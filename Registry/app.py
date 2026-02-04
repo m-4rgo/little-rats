@@ -9,18 +9,31 @@ from flask import jsonify
 app = Flask(__name__)
 
 # database config
-env = os.environ.get("FLASK_ENV", "dev")
+# env = os.environ.get("FLASK_ENV", "dev")
+env = os.environ.get("APP_ENV", "prod")
 
 if env == "prod":
     app.config.from_object(ProdConfig)
 else:
     app.config.from_object(DevConfig)
 
+
+# development
+# def get_db():
+#     return pymysql.connect(
+#         **app.config["DB_CONFIG"],
+#         cursorclass=pymysql.cursors.DictCursor
+#     )
+
+# production
 def get_db():
     return pymysql.connect(
         **app.config["DB_CONFIG"],
-        cursorclass=pymysql.cursors.DictCursor
+        cursorclass=pymysql.cursors.DictCursor,
+        autocommit=True,
+        connect_timeout=10
     )
+
 
 # dressup game
 @app.route('/api/users')
@@ -308,6 +321,10 @@ def user_page(user_id):
         rats=rats
     )
 
+# for development
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=5001)
 
+# for production
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001)
+    app.run()

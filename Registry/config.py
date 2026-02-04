@@ -14,6 +14,9 @@ class DevConfig(BaseConfig):
 
 class ProdConfig(BaseConfig):
     DEBUG = False
+    TESTING = False
+
+
 
 
 # old config for development (MySQL connection)
