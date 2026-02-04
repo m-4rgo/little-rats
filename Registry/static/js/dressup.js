@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // 2️⃣ Load default wallpapers AFTER user wallpapers
                 const defaultWallpapers = [
-                    // { name: "Default 1", image_path: "wallpapers/blank_wallpaper.png" },
+                    // { name: "Default 1", image_path: "items/circus_hills_2026.png" },
                     { name: "Default 2", image_path: "wallpapers/default_wallpaper.png" },
                     { name: "Default 3", image_path: "wallpapers/hubble_wallpaper_1.png" },
                     { name: "Default 3", image_path: "wallpapers/hubble_wallpaper_2.png" },

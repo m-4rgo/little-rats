@@ -51,7 +51,6 @@ def api_user_rats(user_id):
         db.close()
     return jsonify(rats)
 @app.route('/api/user/<int:user_id>/items')
-@app.route('/api/user/<int:user_id>/items')
 def api_user_items(user_id):
     db = get_db()
     try:
