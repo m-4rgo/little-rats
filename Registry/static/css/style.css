@@ -163,6 +163,9 @@ nav {
     z-index: 2;
     position: relative;
 }
+#splash-nav a {
+    text-decoration: none;
+}
 #splash-nav li {
     display: inline-flex;
     justify-content: center;
