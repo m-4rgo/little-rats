@@ -161,7 +161,7 @@ def all_rats():
 FROM rats r
 LEFT JOIN users u ON r.owner_id = u.userID
 LEFT JOIN users a ON r.artist_id = a.userID
-ORDER BY r.ratID
+ORDER BY r.ratID DESC
 LIMIT %s OFFSET %s
 """, (per_page, offset))
             rats = cursor.fetchall()
