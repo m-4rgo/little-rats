@@ -1,16 +1,26 @@
+import mysql.connector
 import os
-import subprocess
 
-# Build the MySQL command
-cmd = [
-    "mysql",
-    f"-h{os.environ['DB_HOST']}",
-    f"-P{os.environ['DB_PORT']}",
-    f"-u{os.environ['DB_USER']}",
-    f"-p{os.environ['DB_PASSWORD']}",
-    os.environ['DB_NAME']
-]
+# Connect to DB
+conn = mysql.connector.connect(
+    host=os.environ['DB_HOST'],
+    user=os.environ['DB_USER'],
+    password=os.environ['DB_PASSWORD'],
+    database=os.environ['DB_NAME'],
+    port=int(os.environ['DB_PORT'])
+)
+cursor = conn.cursor()
 
-# Run the import
-subprocess.run(cmd + ["<", "dump.sql"], shell=True, check=True)
+# Open dump.sql and execute commands
+with open("Registry/dump.sql", "r") as f:
+    sql_commands = f.read().split(';')  # split on semicolons
+    for command in sql_commands:
+        command = command.strip()
+        if command:
+            cursor.execute(command)
+
+conn.commit()
+cursor.close()
+conn.close()
+
 print("Database import complete.")
