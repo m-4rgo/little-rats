@@ -45,9 +45,9 @@
     padding: 0;
     box-sizing: border-box;
 }
-html, body {
-    cursor: url("/static/assets/cursor.png") 16 16, auto;
-}
+/*html, body {*/
+/*    cursor: url("/static/assets/cursor.png") 16 16, auto;*/
+/*}*/
 a {
     all: unset;
 }
