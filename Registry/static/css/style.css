@@ -44,7 +44,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    cursor: url("/static/assets/cursor.png"), auto;
+}
+html, body {
+    cursor: url("/static/assets/cursor.png") 16 16, auto;
 }
 a {
     all: unset;
